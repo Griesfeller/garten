@@ -1,0 +1,23 @@
+{
+    "require": {
+        "bower-asset/jquery": "*",
+        "phpunit/phpunit": "*",
+        "yiisoft/yii2": "2.0.9"
+    },
+    "autoload": {
+        "psr-0": {
+            "Grisu\\":        "Grisu/"
+        },
+        "psr-4": {
+            "Grisu\\":        "Grisu/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "Grisu\\":        "Grisu/"
+        },
+        "psr-4": {
+            "Grisu\\":        "Grisu/"
+        }
+    }
+}

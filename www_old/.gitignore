@@ -1,0 +1,4 @@
+vendor*
+perl-lib
+cgi-bin
+.idea*
