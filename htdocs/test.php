@@ -4,8 +4,8 @@ include __DIR__ . '/../Grisu/Core/Autoloader.php';
 use Grisu\DB\DbMysql;
 
 $db = new DbMysql();
-$dbconnection = new \Grisu\DB\DbConnector($db);
-$temperatur = new \Grisu\Core\Temperatur($dbconnection);
+
+$temperatur = new \Grisu\Core\Temperatur($db);
 
 
 
