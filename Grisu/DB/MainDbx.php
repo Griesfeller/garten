@@ -87,6 +87,23 @@ class MainDbx {
         }
     }
 
+    /**
+     *
+     * Setzen der Verbindung
+     * @return boolean
+     */
+    function Connect()
+    {
+        $this->driver_options = array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+        try {
+            $this->DBH = @new \PDO($this->DSN, $this->User, $this->Password, $this->driver_options);
+
+        } catch (\PDOException $e) {
+            $GLOBALS["MASTERDB_FAILED"] = "1";
+            return 0;
+        }
+        return 1;
+    }
 
     /**
      *
@@ -105,7 +122,6 @@ class MainDbx {
         $this->Connect();
     }
 
-
     /**
      *
      * Funktion erneuern der DB Verbindung mit andern DB Benutzern
@@ -120,28 +136,6 @@ class MainDbx {
         $this->Connect();
     }
 
-
-
-    /**
-     *
-     * Setzen der Verbindung
-     * @return boolean
-     */
-    function Connect(){
-        $this->driver_options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-        try {
-            $this->DBH = @new PDO($this->DSN, $this->User, $this->Password, $this->driver_options);
-
-        }
-        catch(PDOException $e) {
-            $GLOBALS["MASTERDB_FAILED"] = "1";
-            return 0;
-        }
-        return 1;
-    }
-
-
-
     /**
      *
      * Funktion zum liefern des Ergebnisses einer datenbankabfrage
@@ -155,8 +149,9 @@ class MainDbx {
 
         if($this->CheckDbh()){
             $this->LastSqlQuery = "SQL: ".$SQL." Werte: ".(is_array($ArrayParameters)?implode(",",$ArrayParameters):"");
+            /** @$this->DBH \PDO */
             $stmt = $this->DBH->prepare($SQL);
-            if($style != 0) $style = PDO::FETCH_BOTH; else $style = PDO::FETCH_ASSOC;
+            if ($style != 0) $style = \PDO::FETCH_BOTH; else $style = \PDO::FETCH_ASSOC;
             if ($stmt->execute($ArrayParameters)) {
                 if($all == 1)   {
                     $row = $stmt->fetchAll($style);
@@ -174,6 +169,15 @@ class MainDbx {
         return $row;
     }
 
+    /**
+     *
+     * Funktion zum checken ob die datenbankverbindung vorhanden ist
+     * @return boolean
+     */
+    function CheckDbh()
+    {
+        if (is_object($this->DBH)) return 1; else return 0;
+    }
 
     /**
      *
@@ -198,18 +202,6 @@ class MainDbx {
         return $ret;
     }
 
-
-    /**
-     *
-     * Funktion zum checken ob die datenbankverbindung vorhanden ist
-     * @return boolean
-     */
-    function CheckDbh(){
-        if(is_object($this->DBH)) return 1; else return 0;
-    }
-
-
-
     /**
      *
      * Funktion fÃ¼r SQL Statments die man zeilenweise abarbeiten (mit Befehl nextRow)
@@ -221,7 +213,7 @@ class MainDbx {
         if($this->CheckDbh()) {
             $this->LastSqlQuery = "SQL: ".$SQL." Werte: ".(is_array($ArrayParameters)?implode(",",$ArrayParameters):"");
             $this->stmt = $this->DBH->prepare($SQL);
-            if($style != 0) $style = PDO::FETCH_BOTH; else $style = PDO::FETCH_ASSOC;
+            if ($style != 0) $style = \PDO::FETCH_BOTH; else $style = \PDO::FETCH_ASSOC;
             $this->stmt->execute($ArrayParameters);
             $err = $this->stmt->errorInfo();
             if($err[0] != "0000") $this->Error = $this->stmt->errorInfo(); else unset($this->Error);
@@ -239,7 +231,7 @@ class MainDbx {
      * @return array
      */
     function NextRow($style=0){
-        if($style != 0) $style = PDO::FETCH_BOTH; else $style = PDO::FETCH_ASSOC;
+        if ($style != 0) $style = \PDO::FETCH_BOTH; else $style = \PDO::FETCH_ASSOC;
         return $this->stmt->fetch($style);
     }
 
