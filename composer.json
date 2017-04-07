@@ -6,18 +6,22 @@
     },
     "autoload": {
         "psr-0": {
-            "Grisu\\":        "Grisu/"
+            "Grisu\\":        "Grisu/",
+	    "Web\\": "Web/"
         },
         "psr-4": {
-            "Grisu\\":        "Grisu/"
+            "Grisu\\":        "Grisu/",
+            "Web\\": "Web/"
         }
     },
     "autoload-dev": {
         "psr-0": {
-            "Grisu\\":        "Grisu/"
+            "Grisu\\":        "Grisu/",
+	    "Web\\": "Web/"
         },
         "psr-4": {
-            "Grisu\\":        "Grisu/"
+            "Grisu\\":        "Grisu/",
+	    "Web\\": "Web/"
         }
     }
 }
