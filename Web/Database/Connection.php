@@ -3,7 +3,7 @@
 namespace Web\Database;
 
 use Web\Interfaces\ConnectionInterface;
-use WEB\Core\Logger;
+use Web\Core\Logger;
 
 class Connection implements ConnectionInterface
 {
@@ -30,7 +30,7 @@ class Connection implements ConnectionInterface
             $this->pdo = New \PDO($dsn, $username, $password);
             $this->connected = true;
         } catch (\Exception $e) {
-            \WEB\Core\Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, $e->getMessage());
+            Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, $e->getMessage());
         }
     }
 

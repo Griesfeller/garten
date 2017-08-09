@@ -21,7 +21,7 @@ class Sensor implements SensorInterface
      */
     public static function object($dbconnection, $id = 0)
     {
-        $return = self::__construct($dbconnection);
+        $return = new self($dbconnection);
         if ($id > 0) {
             $return->getOne($id);
         }

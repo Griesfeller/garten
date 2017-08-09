@@ -14,9 +14,9 @@ class ConnectionTest extends TestCase
         $this->assertEquals(get_class($connection), 'Web\Database\Connection');
         $this->assertTrue($connection->isConnected());
 
-        $connection = new Connection('wasauchimmer', '', '', '', '');
+        $connection = new Connection('/tmp/wasauchimmer', '', '', '', '');
         $this->assertEquals(get_class($connection), 'Web\Database\Connection');
-        $this->assertTrue($connection->isConnected());
+        $this->assertFalse($connection->isConnected());
     }
 
 }
