@@ -1,7 +1,7 @@
 <?php
 namespace Grisu\DB;
 
-
+use Web\Core\Logger;
 use Grisu\Interfaces\DbConnectionInterface;
 
 class DbMysql implements DbConnectionInterface
@@ -121,20 +121,17 @@ class DbMysql implements DbConnectionInterface
 
         if(!$this->error()){
             if($this->nologgen == "0"){
-                $loggen = new loggen();
-                $loggen->loggen_sonstiges("", "", "", "dbg->exec OKAY", print_r($sql,true)." ".print_r($array,true), print_r($result,true));
+                Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($result, true));
             }
             return $result;
         }else{
             if($this->starttrans == "1" ){
                 $this->errorintrans = "1";
-                $loggen = new loggen();
-                $loggen->loggen_textfile("", __FILE__, __LINE__, __METHOD__,  $sql, print_r($array,true),print_r($this,true));
+                Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($this, true));
                 $this->rollback();
             }
             if($this->nologgen == "0"){
-                $loggen = new loggen();
-                $loggen->loggen_sonstiges("", "", "", "dbg->exec ERROR", print_r($sql,true)." ".print_r($array,true), print_r($this->error(),true));
+                Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($this, true));
             }
             return NULL;
         }
@@ -162,21 +159,17 @@ class DbMysql implements DbConnectionInterface
         #kontrolle Fehlermeldung
         if(!$this->error()){
             if($this->nologgen == "0"){
-                $loggen = new loggen();
-                $loggen->loggen_sonstiges("", "", "", "dbg->selectall OKAY", print_r($sql,true)." ".print_r($array,true), print_r($result,true));
+                Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($result, true));
             }
             return $result;
         }else{
             if($this->starttrans == "1" ){
                 $this->errorintrans = "1";
-
-                $loggen = new loggen();
-                $loggen->loggen_textfile("", __FILE__, __LINE__, __METHOD__,  $sql, print_r($array,true),print_r($this,true));
+                Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($result, true));
                 $this->rollback();
             }
             if($this->nologgen == "0"){
-                $loggen = new loggen();
-                $loggen->loggen_sonstiges("", "", "", "dbg->selectall ERROR", print_r($sql,true)." ".print_r($array,true), print_r($this->error(),true));
+                Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($result, true));
             }
             return NULL;
         }
@@ -202,20 +195,17 @@ class DbMysql implements DbConnectionInterface
         }
         if(!$this->error()){
             if($this->nologgen == "0"){
-                $loggen = new loggen();
-                $loggen->loggen_sonstiges("", "", "", "dbg->selectone OKAY", print_r($sql,true)." ".print_r($array,true), print_r($result,true));
+                Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($result, true));
             }
             return $result;
         }else{
             if($this->starttrans == "1" ){
                 $this->errorintrans = "1";
-                $loggen = new loggen();
-                $loggen->loggen_textfile("", __FILE__, __LINE__, __METHOD__,  $sql, print_r($array,true),print_r($this,true));
+                Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($result, true));
                 $this->rollback();
             }
             if($this->nologgen == "0"){
-                $loggen = new loggen();
-                $loggen->loggen_sonstiges("", __FILE__, __LINE__, "dbg->selectone ERROR", print_r($sql,true)." ".print_r($array,true), print_r($this->error(),true));
+                Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($result, true));
             }
             return NULL;
         }
@@ -264,7 +254,7 @@ class DbMysql implements DbConnectionInterface
 
         }else{
             $loggen = new loggen();
-            $loggen->loggen_textfile("", __FILE__, __LINE__, __METHOD__,  $sql, serialize($array),serialize($this));
+            Logger::setLoggerMessage(__FILE__, __METHOD__, __LINE__, print_r($sql, true) . " " . print_r($array, true) . " " . print_r($result, true));
             $this->rollback();
         }
     }
